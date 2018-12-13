@@ -1,0 +1,115 @@
+/* Exercises */
+
+1. List the commands for adding, updating, and deleting data.
+A: INSERT INTO, UPDATE, DELETE FROM
+
+2. Explain the structure for each type of command.
+A: INSERT INTO - after the initial command, state the name of the table you
+   wish to add to. Then, you have the option to either define the columns you
+   wan to set the data to, or just type VALUES, followed by the corresponding
+   values in the same order as the columns. If the values aren't in the same
+   order as the corresponding columns, you may get an error.
+
+   UPDATE - once again, this is followed by the name of the table you want to
+   work with. Then you can use the SET and WHERE keywords, both of which can
+   take multiple clauses. You can also change data by specifying multiple
+   WHERE clauses using AND.
+
+   DELETE FROM - again, specify the table you are deleting the data from. Then
+   use WHERE to specify the data you want to remove. You can use the AND keyword
+   to set multiple clauses for WHERE.
+
+3. What are some of the data types that can be used in tables? Give a real-world
+   example of each type.
+A: Date - keeping track of birthdays
+   Integer - display age
+   Boolean - State whether or not someone is of legal drinking age
+
+4. Decide how to create a new table to hold a list of people invited to a wedding
+   dinner. The table needs to have first and last names, whether they sent in
+   their RSVP, the number of guests they are bringing, and the number of meals
+   (1 for adults and 1/2 for children).
+A: CREATE TABLE wedding (
+     first text,
+     last text,
+     rsvp boolean,
+     guests integer,
+     meals numeric(3, 1)
+   );
+
+   ALTER TABLE wedding ADD COLUMN thank-you boolean SET DEFAULT 'no';
+
+   ALTER TABLE wedding DROP COLUMN meals;
+
+   ALTER TABLE wedding ADD COLUMN table integer;
+
+   DROP TABLE wedding;
+
+5. Write a command to create a new table to hold the books in a library with the
+   columns ISBN, title, author, genre, publishing date, number of copies, and
+   available copies.
+A: CREATE TABLE library (
+     isbn bigint,
+     title text,
+     author text,
+     genre text,
+     published date,
+     copies integer,
+     available-copies integer,
+   );
+
+   INSERT INTO library VALUES (9780060935467, 'To Kill a Mockingbird', 'Harper Lee', 'Southern Gothic', '1960-07-11', 7, 7);
+   INSERT INTO library VALUES (9780142407332, 'The Outsiders', 'S. E. Hinton', 'Young Adult Fiction', '1967-04-24', 5, 5);
+   INSERT INTO library VALUES (9780743273565, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Historical Fiction', '1925-04-10', 8, 8);
+
+   UPDATE library SET available=6 WHERE title='To Kill a Mockingbird';
+
+   DELETE FROM library WHERE title='The Outsiders';
+
+6. Write a command to make a new table to hold spacecrafts. Information should
+   include id, name, year launched, country of origin, a brief description of
+   the mission, orbiting body, if it is currently operating, and its approximate
+   miles from Earth. In addition to the table creation, provide commands that
+   perform the following operations:
+A: CREATE TABLE spacecraft (
+     id integer,
+     name text,
+     year-launched integer,
+     country text,
+     mission text,
+     orbiting text,
+     in-operation boolean,
+     miles-from-earth integer,
+   );
+
+   INSERT INTO spacecraft VALUES (1, 'Luna 10', 1966, 'Russia', 'Orbit the moon', 'Moon', 'no', 0);
+   INSERT INTO spacecraft VALUES (2, 'Messenger', 2004, 'United States', 'The probe was launched to study Mercury's chemical composition, geology, and magnetic field.', 'Mercury', 'no', 0);
+   INSERT INTO spacecraft VALUES (3, 'Mars Reconnaissance Orbiter', 2005, 'United States', 'Mars Reconnaissance Orbiter (MRO) is a multipurpose spacecraft designed to conduct reconnaissance and exploration of Mars from orbit', 'Mars', 'yes', 33900000);
+
+   DELETE FROM spacecraft WHERE id=2;
+
+   UPDATE spacecraft SET in-operation='no' WHERE id=3;
+
+7. Write a command to create a new table to hold the emails in your inbox. This
+   table should include an id, the subject line, the sender, any additional
+   recipients, the body of the email, the timestamp, whether or not you have
+   read the email, and the id of the email chain it's in. Also provide commands
+   that perform the following operations:
+A: CREATE TABLE inbox (
+     id integer,
+     subject text,
+     sender text,
+     additional-recipients text,
+     body text,
+     timestamp timestamp,
+     read boolean,
+     email-chain text,
+   );
+
+   INSERT INTO inbox VALUES (1, 'Important', 'joe@email.com', 'sally@email.com', 'Let's have lunch.', '2018-12-13 13:23:14', 'yes', 'lunch');
+   INSERT INTO inbox VALUES (2, 'Urgent', 'sally@email.com', 'joe@email.com', 'Sounds good to me!', '2018-12-13 13:31:25', 'no', 'lunch');
+   INSERT INTO inbox VALUES (3, 'Meeting today', 'boss@work.com', 'none', 'Let's meet to discuss your deadlines.', '2018-12-10 08:43:02', 'yes', 'work');
+
+   DELETE FROM inbox WHERE subject='Important';
+
+   UPDATE inbox SET read="no" WHERE subject='Meeting today';
