@@ -1,0 +1,91 @@
+/* Exercises */
+
+1. Write out a generic SELECT statement.
+A: SELECT value
+   FROM table
+   WHERE clause;
+
+2. Create a fun way to remember the order of operations in a SELECT statement,
+   such as a mnemonic.
+A: I didn't create it, but while researching SQL I saw:
+   Sweaty Feet Will Give Horrible Odors, corresponding to:
+   SELECT FROM WHERE GROUP-BY HAVING ORDER-BY.
+
+3. Given this dogs table, write queries to select the following pieces of data:
+A: SELECT name, gender,  age
+   FROM dogs
+   WHERE breed LIKE '%labrador%';
+
+   SELECT id
+   FROM dogs
+   WHERE age < 1;
+
+   SELECT name, age
+   FROM dogs
+   WHERE gender='F' AND weight>35;
+
+   SELECT *
+   FROM dogs
+   WHERE breed NOT LIKE '%shepherd%';
+
+   SELECT id, age, weight, breed
+   FROM dogs
+   WHERE weight>60 OR breed='great dane';
+
+4. Given this cats table, what records are returned from these queries?
+A: Mushi, 2016-03-22
+   Seashell,	null
+   Azul,	2016-04-17
+   Victoire,	2016-09-01
+   Nala,	null
+
+   Mushi, 1
+   Seashell,	7
+   Azul,	3
+   Victoire,	7
+   Nala,	1
+
+5. From the cats table, write queries to select the following pieces of
+   data.
+A: SELECT *
+   FROM cats;
+
+   SELECT name, gender
+   FROM cats
+   WHERE age=7;
+
+   SELECT name
+   FROM cats;
+
+6. List each comparison operator and explain when you would use it. Include
+   a real world example for each.
+A: < is used when you want to find all values less than a given value. Like finding
+   all people who are less than 21 years old, not including 21 year olds.
+
+   > is used when you want to find all values greater than a given value. i.e.
+   finding all people who are over 21 years old, not including 21 year olds.
+
+   <= similar to less than, but also includes the given value. You could use
+   this to find people who are 20 years old and younger.
+
+   >= similar to greater than, but includes the given value. Use it to find people
+   who are 21 and older.
+
+   != and <> are used to return values that are not equal to the given value. Find all students
+   who did not get an F on their test. Not commonly used in queries since the speed is slower.
+
+   = is used to return values that are the same as the given value. Find the students
+   who received an A on their test.
+
+7. From the cats table, what data is returned from these queries?
+A: Seashell
+   Nala
+
+   Mushi
+   Seashell
+   Victoire
+   Nala
+
+   3
+   4
+   
