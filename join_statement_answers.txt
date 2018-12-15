@@ -1,0 +1,90 @@
+/* Exercises */
+
+1. How do you find related data held in two separate data tables?
+A: You find related data from separate tables by using a JOIN clause.
+
+2. Explain, in your own words, the difference between an INNER JOIN,
+   LEFT OUTER JOIN, and RIGHT OUTER JOIN. Give a real-world example for
+   each.
+A: INNER JOIN produces 1 row for each matching row between the 2 tables.
+   LEFT OUTER JOIN returns the same as INNER JOIN, as well as the rows
+   from the 1st table that didn't match, with a null value for the table 2
+   column.
+   RIGHT OUTER JOIN returns the same as INNER JOIN, as well as the rows
+   from the 2nd table that didn't match, with a null value for the table 1
+   column.
+   Lets say you have 2 tables, table1 contains information about products
+   in a store, and table2 conains information about sales for the month
+   in the store, and both of these tables have a column for product-id.
+   To see the sales for the month, with their corresponding products, you
+   could just use the default INNER JOIN. To see the sales that month, and
+   also the products you have that had no sales, you would use a LEFT OUTER
+   JOIN. Then let's say you removed a product from your store, but it did
+   have a sale last month. To see this sale, you would use RIGHT OUTER JOIN,
+   to list it along with the rest of the sales.
+
+3. Define primary key and foreign key. Give a real-world example for each.
+A: A primary key is a unique identifier for each row in a table. A foreign
+   key is a primary key of one table that is included as a non-unique attr-
+   ibute in another table. In my answer to question 2, the product-id is the
+   primary key for the product table, and the foreign key in the sales table.
+
+4. Define aliasing.
+A: Aliasing is when you use short variables for table names, rather than the
+   full name of the table.
+
+5. Change this query so that you are using aliasing:
+A: SELECT p.name, c.salary, c.vacation_days
+   FROM professor AS p
+   JOIN compensation AS c
+   ON p.id = c.professor_id;
+
+6. Why would you use a NATURAL JOIN? Give a real-world example.
+A: A NATURAL JOIN joins tables by their shared clolumns, and prevents you
+   from having to type out all of the columns.
+   Lets say you have 2 tables, table 1 is categories, and table 2 is products.
+   Both of these tables have a category-id column. To join the 2 tables you
+   would enter: SELECT * FROM products NATURAL JOIN categories;. This joins them
+   because they share the category-id column.
+
+7. Using this Employee schema and data, write queries to find the following
+   information:
+A: This solution shows all employees and all shifts:
+     SELECT e.name, s.date, s.start_time, s.end_time
+     FROM employees AS e
+     RIGHT OUTER JOIN shifts AS s
+     ON e.id = s.id;
+
+8. Using this Adoption schema and data, please write queries to retrieve the
+   following information and include the results:
+A: This solution shows all volunteers along with their dog if they have one:
+     SELECT v.first_name, v.last_name, d.name
+     FROM volunteers AS v
+     LEFT OUTER JOIN dogs AS d
+     ON v.foster_dog_id = d.id;
+
+   This solution shows all cat adoptions with cat name, adopter name, and date
+   within the last month:
+     SELECT c.name, a.first_name, ca.date
+     FROM cat_adoptions AS ca
+     JOIN cats AS c  ON ca.cat_id = c.id
+     JOIN adopters AS a on ca.adopter_id = a.id
+     WHERE ca.date >= CURRENT_DATE - INTERVAL '30 DAYS';
+
+   This solution shows all volunteers who have not adopted a dog:
+     SELECT a.first_name, a.last_name
+     FROM adopters AS a
+     JOIN dog_adoptions AS da
+     ON da.adopter_id != a.id;
+
+   This solution shows all dogs and cats that have not been adopted.
+
+   This solution shows the name of the person who adopted Rosco:
+     SELECT a.first_name, a.last_name
+     FROM adopters AS a
+     JOIN dog_adoptions AS da
+     ON da.adopter_id = a.id;
+
+9. Using this Library schema and data, write queries applying the following
+   scenarios and include the results:
+A:
