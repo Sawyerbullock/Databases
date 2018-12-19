@@ -78,6 +78,17 @@ A: This solution shows all volunteers along with their dog if they have one:
      ON da.adopter_id != a.id;
 
    This solution shows all dogs and cats that have not been adopted.
+     SELECT c.name
+     FROM cats AS c
+     LEFT OUTER JOIN cat_adoptions AS ca
+     ON ca.cat_id = c.id
+     WHERE ca.date IS NULL;
+
+     SELECT d.name
+     FROM dogs AS d
+     LEFT OUTER JOIN dog_adoptions AS da
+     ON da.dog_id = d.id
+     WHERE da.date IS NULL;
 
    This solution shows the name of the person who adopted Rosco:
      SELECT a.first_name, a.last_name
@@ -87,4 +98,15 @@ A: This solution shows all volunteers along with their dog if they have one:
 
 9. Using this Library schema and data, write queries applying the following
    scenarios and include the results:
-A:
+A: SELECT p.name, h.rank
+   FROM patrons AS p
+   JOIN holds AS h
+   ON p.id = h.patron_id
+   WHERE h.isbn = '9136884926'
+   ORDER BY h.rank ASC;
+
+   SELECT p.name, b.title
+   FROM patrons AS p
+   LEFT OUTER JOIN transactions AS t ON p.id = t.patron_id
+   LEFT OUTER JOIN books AS b ON b.isbn = t.isbn
+   WHERE t.checked_in_date IS NULL;
